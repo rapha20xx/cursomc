@@ -1,6 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,29 +15,33 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_categoria")
-public class Categoria implements Serializable {
-    private static final long serialVersionUID = -1941946418034831676L;
+@Table(name = "tb_produto")
+public class Produto implements Serializable {
+    private static final long serialVersionUID = -1561332160216752407L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos = new ArrayList<>();
+    private String nome;
+    private Double preco;
 
-    public Categoria(Long id, String name) {
+    @ManyToMany
+    @JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public Produto(Long id, String nome, Double preco) {
         this.id = id;
-        this.name = name;
+        this.nome = nome;
+        this.preco = preco;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id);
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
     }
 
     @Override
