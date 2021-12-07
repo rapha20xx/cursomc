@@ -3,20 +3,31 @@ package com.raphasantos.cursomc.domain;
 import com.raphasantos.cursomc.domain.enums.TipoCliente;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+
 @NoArgsConstructor
+@Entity
+@Table(name = "tb_cliente")
 public class Cliente implements Serializable {
     private static final long serialVersionUID = 1531753792211664905L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
     private String cpfOuCnpj;
     private Integer tipoCliente;
 
+@OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente(Long id, String name, String email, String cpfOuCnpj, TipoCliente tipoCliente) {

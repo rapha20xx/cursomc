@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,17 +13,27 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
+@Table(name = "tb_endereco")
 public class Endereco implements Serializable {
     private static final long serialVersionUID = -6754205167724337887L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String logradouro;
     private String numero;
     private String complemento;
     private String bairro;
     private String cep;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "cidade_id")
     private Cidade cidade;
 
     @Override
