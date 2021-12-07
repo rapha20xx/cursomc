@@ -4,6 +4,7 @@ import com.raphasantos.cursomc.domain.Categoria;
 import com.raphasantos.cursomc.domain.Produto;
 import com.raphasantos.cursomc.repositories.CategoriaRepository;
 import com.raphasantos.cursomc.repositories.ProdutoRepository;
+import com.raphasantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,6 @@ public class ProdutoService {
 
     public Produto findById(Long id){
         Optional<Produto> obj = produtoRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
     }
 }
