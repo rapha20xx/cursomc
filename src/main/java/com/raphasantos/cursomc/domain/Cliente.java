@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raphasantos.cursomc.domain.enums.TipoCliente;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,8 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipoCliente;
 
-@OneToMany(mappedBy = "cliente")
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
