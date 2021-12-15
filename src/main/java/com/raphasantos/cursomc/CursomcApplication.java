@@ -43,6 +43,9 @@ public class CursomcApplication implements CommandLineRunner {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -104,5 +107,14 @@ public class CursomcApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
+		ItemPedido itemPed1 = new ItemPedido(ped1, prod1, 0.00, 1, 2000.00);
+		ItemPedido itemPed2 = new ItemPedido(ped1, prod3, 0.00, 2, 80.00);
+		ItemPedido itemPed3 = new ItemPedido(ped2, prod2, 100.00, 1, 800.00);
+
+		prod1.getItens().addAll(Arrays.asList(itemPed1));
+		prod2.getItens().addAll(Arrays.asList(itemPed3));
+		prod3.getItens().addAll(Arrays.asList(itemPed2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(itemPed1,itemPed2,itemPed3));
 	}
 }
