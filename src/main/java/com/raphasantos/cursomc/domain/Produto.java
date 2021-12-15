@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -36,6 +38,7 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos(){
         List<Pedido> list = new ArrayList<>();
         for (ItemPedido x: itens) {

@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raphasantos.cursomc.domain.enums.EstadoPagamento;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 @Entity
+@Table(name = "tb_pagamento")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 5344503588189906184L;
@@ -18,6 +20,7 @@ public abstract class Pagamento implements Serializable {
 
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId

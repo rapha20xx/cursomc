@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 @NoArgsConstructor
 
 @Entity
+@Table(name = "tb_pagamento_boleto")
 public class PagamentoComBoleto extends Pagamento{
     private static final long serialVersionUID = -5818744963923980229L;
 

@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.EmbeddedId;
@@ -14,6 +15,7 @@ import java.util.Objects;
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = -9138134464539023539L;
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -30,6 +32,7 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }

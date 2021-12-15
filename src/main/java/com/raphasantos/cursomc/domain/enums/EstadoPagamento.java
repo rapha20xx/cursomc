@@ -1,6 +1,6 @@
 package com.raphasantos.cursomc.domain.enums;
 
-public enum EstadoPagamento {
+public enum EstadoPagamento{
 
     PENDENTE(1, "Pendente"),
     QUITADO(2, "Quitado"),

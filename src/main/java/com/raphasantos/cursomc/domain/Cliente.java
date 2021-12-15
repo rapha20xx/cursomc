@@ -33,7 +33,7 @@ public class Cliente implements Serializable {
     private List<Pedido> pedidos = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "TELEFONE")
+    @CollectionTable(name = "tb_telefone")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente(Long id, String name, String email, String cpfOuCnpj, TipoCliente tipoCliente) {

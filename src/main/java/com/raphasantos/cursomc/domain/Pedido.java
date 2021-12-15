@@ -1,6 +1,7 @@
 package com.raphasantos.cursomc.domain;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "tb_pedido")
 public class Pedido implements Serializable {
     private static final long serialVersionUID = -1140257092660893316L;
 
@@ -23,8 +25,10 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
     private Date instante;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
