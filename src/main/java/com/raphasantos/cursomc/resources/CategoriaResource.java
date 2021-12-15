@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.Id;
 import java.net.URI;
 import java.util.List;
 
@@ -34,5 +35,12 @@ public class CategoriaResource {
         obj = categoriaService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity<Void> update (@RequestBody Categoria obj, @PathVariable Long id){
+        obj.setId(id);
+        obj = categoriaService.update(obj);
+        return ResponseEntity.noContent().build();
     }
 }
