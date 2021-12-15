@@ -33,4 +33,9 @@ public class CategoriaService{
         findById(obj.getId());
         return categoriaRepository.save(obj);
     }
+
+    public void delete (Long id){
+        findById(id);
+        categoriaRepository.deleteById(id);
+    }
 }
