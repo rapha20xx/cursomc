@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.services;
 
+import com.raphasantos.cursomc.DTO.CategoriaDTO;
 import com.raphasantos.cursomc.domain.Categoria;
 import com.raphasantos.cursomc.repositories.CategoriaRepository;
 import com.raphasantos.cursomc.services.exceptions.ObjectNotFoundException;
@@ -45,5 +46,8 @@ public class CategoriaService{
     public Page<Categoria>findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return categoriaRepository.findAll(pageRequest);
+    }
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getId(), objDTO.getName());
     }
 }
