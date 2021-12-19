@@ -1,5 +1,6 @@
 package com.raphasantos.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,11 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
 
     @ManyToOne
     @JoinColumn(name = "cidade_id")

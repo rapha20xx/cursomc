@@ -24,7 +24,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipoCliente;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
         this.name = name;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = tipoCliente.getCod();
+        this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
     }
 
     public Long getId() {
