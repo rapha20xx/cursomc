@@ -2,7 +2,6 @@ package com.raphasantos.cursomc.services;
 
 import com.raphasantos.cursomc.DTO.CategoriaDTO;
 import com.raphasantos.cursomc.domain.Categoria;
-import com.raphasantos.cursomc.domain.Cliente;
 import com.raphasantos.cursomc.repositories.CategoriaRepository;
 import com.raphasantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class CategoriaService{
     public Categoria update (Categoria obj){
         Categoria newObj = findById(obj.getId());
         updateData(newObj, obj);
-        return categoriaRepository.save(obj);
+            return categoriaRepository.save(obj);
     }
 
     public void delete (Long id){

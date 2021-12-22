@@ -1,6 +1,7 @@
 package com.raphasantos.cursomc.resources;
 
 import com.raphasantos.cursomc.DTO.ClienteDTO;
+import com.raphasantos.cursomc.DTO.ClienteNewDTO;
 import com.raphasantos.cursomc.domain.Cliente;
 import com.raphasantos.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,14 @@ public class ClienteResource {
 
     @PostMapping(value = "/{id}")
     public ResponseEntity<Void> insert (@Valid @RequestBody ClienteDTO objDto){
+        Cliente obj =clienteService.fromDTO(objDto);
+        obj = clienteService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDto){
         Cliente obj =clienteService.fromDTO(objDto);
         obj = clienteService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
