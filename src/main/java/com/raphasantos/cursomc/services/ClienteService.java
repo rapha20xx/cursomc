@@ -38,7 +38,7 @@ public class ClienteService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
-
+    @Transactional
     public Cliente insert (Cliente obj){
         obj.setId(null);
         obj = clienteRepository.save(obj);
