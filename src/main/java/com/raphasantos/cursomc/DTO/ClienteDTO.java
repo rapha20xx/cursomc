@@ -1,6 +1,7 @@
 package com.raphasantos.cursomc.DTO;
 
 import com.raphasantos.cursomc.domain.Cliente;
+import com.raphasantos.cursomc.services.validation.ClienteUpdate;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @NoArgsConstructor
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
     private static final long serialVersionUID = 2528800389740673207L;
 
