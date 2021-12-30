@@ -21,7 +21,7 @@ public class Produto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
     private Double preco;
 
     @JsonIgnore
@@ -29,12 +29,12 @@ public class Produto implements Serializable {
     private Set<ItemPedido> itens = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @JoinTable(name = "tb_produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
 
-    public Produto(Long id, String nome, Double preco) {
+    public Produto(Long id, String name, Double preco) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.preco = preco;
     }
 

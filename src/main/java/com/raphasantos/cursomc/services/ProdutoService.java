@@ -6,6 +6,9 @@ import com.raphasantos.cursomc.repositories.CategoriaRepository;
 import com.raphasantos.cursomc.repositories.ProdutoRepository;
 import com.raphasantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,9 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     public List<Produto> findAll(){
         return produtoRepository.findAll();
     }
@@ -24,5 +30,11 @@ public class ProdutoService {
     public Produto findById(Long id){
         Optional<Produto> obj = produtoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
+    }
+
+    public Page<Produto> search(String name, List<Long> ids, Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        List<Categoria> categorias = categoriaRepository.findAllById(ids);
+        return produtoRepository.search(name, categorias, pageRequest);
     }
 }
