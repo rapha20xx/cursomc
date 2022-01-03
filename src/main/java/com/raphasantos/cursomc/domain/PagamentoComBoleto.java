@@ -1,6 +1,7 @@
 package com.raphasantos.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.raphasantos.cursomc.domain.enums.EstadoPagamento;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tb_pagamento_boleto")
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
     private static final long serialVersionUID = -5818744963923980229L;
 

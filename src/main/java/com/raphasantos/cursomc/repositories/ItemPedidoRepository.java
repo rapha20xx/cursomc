@@ -1,6 +1,5 @@
 package com.raphasantos.cursomc.repositories;
 
-import com.raphasantos.cursomc.domain.Categoria;
 import com.raphasantos.cursomc.domain.ItemPedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
