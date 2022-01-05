@@ -4,13 +4,11 @@ import com.raphasantos.cursomc.domain.ItemPedido;
 import com.raphasantos.cursomc.domain.PagamentoComBoleto;
 import com.raphasantos.cursomc.domain.Pedido;
 import com.raphasantos.cursomc.domain.enums.EstadoPagamento;
-import com.raphasantos.cursomc.repositories.ItemPedidoRepository;
-import com.raphasantos.cursomc.repositories.PagamentoRepository;
-import com.raphasantos.cursomc.repositories.PedidoRepository;
-import com.raphasantos.cursomc.repositories.ProdutoRepository;
+import com.raphasantos.cursomc.repositories.*;
 import com.raphasantos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -37,6 +35,9 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public List<Pedido> findAll() {
         return pedidoRepository.findAll();
     }
@@ -46,9 +47,11 @@ public class PedidoService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
 
+    @Transactional
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.findById(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -64,6 +67,7 @@ public class PedidoService {
             ip.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
 }
