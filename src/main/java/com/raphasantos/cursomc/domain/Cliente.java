@@ -1,15 +1,15 @@
 package com.raphasantos.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.raphasantos.cursomc.domain.enums.Perfil;
 import com.raphasantos.cursomc.domain.enums.TipoCliente;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
-
-@NoArgsConstructor
 @Entity
 @Table(name = "tb_cliente")
 public class Cliente implements Serializable {
@@ -29,7 +29,7 @@ public class Cliente implements Serializable {
     @JsonIgnore
     private String senha;
 
-    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @JsonIgnore
@@ -40,6 +40,13 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "tb_telefone")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "tb_perfil")
+    private Set<Integer> perfis = new HashSet<>();
+
+    public Cliente() {
+        addPerfil(Perfil.CLIENTE);
+    }
 
 
     public Cliente(Long id, String name, String email, String cpfOuCnpj, TipoCliente tipoCliente, String senha) {
@@ -49,6 +56,7 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getCod();
         this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Long getId() {
@@ -113,6 +121,14 @@ public class Cliente implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCod());
     }
 
     public List<Pedido> getPedidos() {
