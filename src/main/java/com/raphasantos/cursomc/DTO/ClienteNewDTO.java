@@ -29,6 +29,9 @@ public class ClienteNewDTO implements Serializable {
     private String cpfOuCnpj;
     private Integer tipoCliente;
 
+    @NotEmpty
+    private String senha;
+
     private String logradouro;
     private String numero;
     private String complemento;
